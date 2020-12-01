@@ -1,0 +1,121 @@
+const powerModes = {
+    ON : 1;
+    STANDBY : 2;
+}
+
+const directions = {
+    UP : 1;
+    DOWN : 2;
+    LEFT : 3;
+    RIGHT : 4;
+}
+
+class CarState {
+    constructor(direction, speed, powerMode) {
+	this.direction = direction;
+	this.speed = speed;
+	this.powerMode = powerMode;
+    }
+};
+
+class SensorReading {
+    constructor(timestamp, value) {
+        this.timestamp = timestamp;
+        this.value = value;
+    }
+}
+
+// SensorReadingArray is a stack array of fixed size,
+// where new sensor readings can be pushed into,
+// but never pulled out from.
+//
+// NOTE: the implementation is still in a beta phase.
+//       the exact way this DS will be used is still
+//       unknown. Therefore, the implementation, as well
+//       as the interface may change in future.
+//
+// Newer sensor readings will replace old sensor readings
+// when the stack runs out of empty spaces.
+//
+// The interface:
+//
+// The constructor is given the maximum size of the desired
+// array.
+//
+// the addReading adds a new sensor reading into the
+// array, at the next free space - if any - or overwriting
+// the oldest sensor reading value if no free spaces are
+// left in the array.
+//
+// the forEach can be called with a function f. It
+// calls f on all the recorded sensor readings starting
+// from the newest sensor reading and going backwards
+// towards the oldest sensor reading
+
+class SensorReadingArray {
+    constructor(maxSize) {
+        this.arr = [];
+        this.maxSize = maxSize;
+        this.length = 0;
+        i = 0;
+    }
+
+    addReading(element) {
+        this.arr[i] = element;
+        this.i++;
+
+        if (this.i >= this.maxSize) {
+            this.i = 0;
+        }
+
+        if (this.length < this.maxSize) {
+            this.length++;
+        }
+    }
+
+    length() {
+        return this.length;
+    }
+
+    forEach(f) {
+        if (this.length === 0) {
+            return;
+        }
+
+        curr = this.i-1;
+	
+	for (j=0; j<this.length; j++) {
+            if (curr < 0) {
+                curr = this.maxSize-1;
+            }
+            f(this.arr[curr]);
+            curr--;
+        }
+        
+    }
+}
+
+class Sensor {
+    constructor(id, valueUnits, minValue, maxValue, sensorMemorySize) {
+        this.id = id;
+        this.sensorReadings = new SensorReadingArray(sensorMemorySize);
+        this.valueUnits = valueUnits;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+    }
+
+    addSensorReading(reading) {
+        // TODO: implement this
+    }
+}
+
+allSensors = [];
+
+activeSensor;
+
+class MessageWrapper {
+
+    sendMessage(msg) {
+        // TODO: implement this
+    }
+}
