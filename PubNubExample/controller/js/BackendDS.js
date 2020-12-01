@@ -1,13 +1,14 @@
 const powerModes = {
-    ON : 1;
-    STANDBY : 2;
+    ON : 1,
+    STANDBY : 2
 }
 
 const directions = {
-    UP : 1;
-    DOWN : 2;
-    LEFT : 3;
-    RIGHT : 4;
+    UP : 1,
+    DOWN : 2,
+    LEFT : 3,
+    RIGHT : 4,
+    STOPPED : 5
 }
 
 class CarState {
@@ -57,20 +58,24 @@ class SensorReadingArray {
         this.arr = [];
         this.maxSize = maxSize;
         this.length = 0;
-        i = 0;
+        this.i = 0;
     }
 
-    addReading(element) {
-        this.arr[i] = element;
-        this.i++;
-
-        if (this.i >= this.maxSize) {
-            this.i = 0;
-        }
-
+    add(element) {
         if (this.length < this.maxSize) {
             this.length++;
+            this.arr.push(element);
+            this.i++;
+            if (this.i === this.maxSize)
+                this.i = 0;
         }
+        else {
+            this.arr[this.i] = element;
+            this.i++;
+            if (this.i === this.maxSize)
+                this.i = 0;
+        }
+
     }
 
     length() {
@@ -82,9 +87,9 @@ class SensorReadingArray {
             return;
         }
 
-        curr = this.i-1;
+        let curr = this.i-1;
 	
-	for (j=0; j<this.length; j++) {
+	    for (let j=0; j<this.length; j++) {
             if (curr < 0) {
                 curr = this.maxSize-1;
             }
@@ -105,17 +110,18 @@ class Sensor {
     }
 
     addSensorReading(reading) {
-        // TODO: implement this
+        this.sensorReadings.add(reading);
     }
 }
 
 allSensors = [];
 
-activeSensor;
+var activeSensor = null;
+var allSensors = [];
 
 class MessageWrapper {
 
     sendMessage(msg) {
-        // TODO: implement this
+        console.log(msg);  // TODO: fix the dummy implementation 
     }
 }
