@@ -10,13 +10,14 @@ DHTesp dht;
 char ssid[] = "RC_LOCAL";                 // Your personal network SSID
 char wifi_password[] = "sensors123"; // Your personal network password
 
-// MQTT
+// MQTT 
+// Changes these values to match the brokers settings
 const char* mqtt_server = "192.168.10.150";  // IP of the MQTT broker
-const char* humidity_topic = "sensor1/humidity";
-const char* temperature_topic = "sensor1/temperature";
+const char* humidity_topic = "ADD_ON/Sensor2";
+const char* temperature_topic = "ADD_ON/Sensor3";
 const char* mqtt_username = "hello"; // MQTT username
 const char* mqtt_password = "hello"; // MQTT password
-const char* clientID = "client_sensor1y"; // MQTT client ID
+const char* clientID = "Sensor2"; // MQTT client ID
 
 // Initialise the WiFi and MQTT Client objects
 WiFiClient wifiClient;
