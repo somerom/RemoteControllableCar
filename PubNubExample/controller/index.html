@@ -22,9 +22,9 @@
             display: flex;
         }
 
-        #carcontrol {
+        #buttons {
             width: 80rem;
-            height: 30rem;
+            height: 40rem;
             background-color: aquamarine;
             display: grid;
             grid-template-rows: 0.5fr 0.5fr 2fr;
@@ -32,23 +32,23 @@
             grid-template-areas:
                 "power up ."
                 "left down right"
-                "speed . .";
+                ". . .";
         }
 
-        #tempsensor {
+        #sensors {
             position: relative;
             background-color: burlywood;
             width: 80rem;
-            height: 20rem;
+            height: 40rem;
             display: flex;
         }
 
-        #humiditysensor {
+        #sensordata {
             display: flex;
             position: relative;
             background-color: cornsilk;
             width: 80rem;
-            height: 20rem;
+            height: 40rem;
         }
 
         #led {
@@ -142,8 +142,14 @@
             grid-area: power;
         }
 
-        .speed {
-            grid-area: speed;
+        #add {
+            position: absolute;
+            left: 25%;
+        }
+
+        #delete {
+            position: absolute;
+            left: 75%;
         }
 
         button {
@@ -229,17 +235,15 @@
 
         </script>
 
-        <div>
-            <div id="tempsensor">
-                <p>Temperature Sensor Data:</p>
-            </div>
-            <div id="humiditysensor">
-                <p>Humidity Sensor Data:</p>
+        <div id="sensors">
+            <div>
+                <button id='add'>ADD SENSOR</button>
+                <button id='delete'>DELETE SENSOR</button>
             </div>
         </div>
     </div>
     <div class="site">
-        <div id="carcontrol">
+        <div id="buttons">
             <div class="power">
                 <button>POWER</button>
             </div>
@@ -255,11 +259,8 @@
             <div class="right">
                 <button>RIGHT</button>
             </div>
-            <div class="speed">
-                <label for="quantity">Car speed:</label>
-                <input type="number" id="quantity" name="quantity" min="0" max="100" step="5" value="50">
-                <input type="submit">
-            </div>
+        </div>
+        <div id="sensordata">
         </div>
     </div>
 </body>
