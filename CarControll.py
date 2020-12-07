@@ -6,7 +6,7 @@ if __name__ == '__main__':
   while True:
     
     if "has new command" > 0:
-      #get nethe new command and put it to x
+      #get the new command and put it to x
        
       if x == 0:
         ser.write(b"forward\n")
