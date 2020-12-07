@@ -1,1 +1,28 @@
+import serial
+import time
+if __name__ == '__main__':
+  ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+  ser.flush()
+  while True:
+    
+    if "has new command" > 0:
+      #get nethe new command and put it to x
+       
+      if x == 0:
+        ser.write(b"forward\n")
+      elif x == 1:
+        ser.write(b"back\n")    
+      elif x == 2:
+        ser.write(b"stop\n") 
+      elif x == 3:
+        ser.write(b"right\n")
+      elif x == 4:
+        ser.write(b"left\n")  
+      else:
+        ser.write(b"ERROR\n")	
 
+      line = ser.readline().decode('utf-8').rstrip()
+      
+    print(line)
+
+  time.sleep(1)
