@@ -1,7 +1,7 @@
 import os
 os.system("sudo apt-get install mosquitto")
 os.system("sudo apt-get install mosquitto-clients -y")
-pip3 install paho-mqtt
+os.system("pip3 install paho-mqtt")
 os.system("./configure.sh")
 print("Username:")
 username = input()
