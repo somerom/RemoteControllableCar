@@ -1,24 +1,3 @@
-const powerModes = {
-    ON : 1,
-    STANDBY : 2
-}
-
-const directions = {
-    UP : 1,
-    DOWN : 2,
-    LEFT : 3,
-    RIGHT : 4,
-    STOPPED : 5
-}
-
-class CarState {
-    constructor(direction, speed, powerMode) {
-	this.direction = direction;
-	this.speed = speed;
-	this.powerMode = powerMode;
-    }
-};
-
 class SensorReading {
     constructor(timestamp, value) {
         this.timestamp = timestamp;
@@ -115,39 +94,6 @@ class Sensor {
 }
 
 var allSensors = []
-
-function addSensor(sensorData) {
-    allSensors.push(new Sensor(sensorData.id, sensorData.valueUnits, sensorData.minValue, sensorData.maxValue, 20));
-}
-
-loadJSONData("sensors.json");
-
-function loadJSONData() {
-    let jsonFile = [
-    {"id": "ADD_ON/DHTTEMP", "valueUnits": "C", "minValue": -40, "maxValue": 80},
-    {"id": "ADD_ON/DHTHUM", "valueUnits": "%", "minValue": 0, "maxValue": 100 },
-    {"id": "ADD_ON/TEMP", "valueUnits": "C", "minValue": -40, "maxValue": 125 },
-    {"id": "ADD_ON/ACC", "valueUnits": "m/s^2", "minValue": 0,"maxValue": "undefined"}];
-    let jsonData = JSON.stringify(jsonFile);
-    let fr = new FileReader();
-    let f  = new Blob([jsonData], {type:"application/json"});
-
-    if (typeof window.FileReader !== 'function') {
-      alert("The file API isn't supported on this browser yet.");
-      return;
-    }
-
-    fr = new FileReader();
-    fr.onload = receivedText;
-
-    function receivedText(e) {
-      console.log(e.target.result);
-      JSON.parse(e.target.result).forEach(addSensor);
-        
-    }
-
-    fr.readAsText(f);
-}
 
 function findSensorByID(sid) {
     return allSensors.find(function(elem) { return elem.id === sid; });
