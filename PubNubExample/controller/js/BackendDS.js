@@ -114,14 +114,46 @@ class Sensor {
     }
 }
 
-allSensors = [];
+var allSensors = []
+
+function addSensor(sensorData) {
+    allSensors.push(new Sensor(sensorData.id, sensorData.valueUnits, sensorData.minValue, sensorData.maxValue, 20));
+}
+
+loadJSONData("sensors.json");
+
+function loadJSONData() {
+    let jsonFile = [
+    {"id": "ADD_ON/DHTTEMP", "valueUnits": "C", "minValue": -40, "maxValue": 80},
+    {"id": "ADD_ON/DHTHUM", "valueUnits": "%", "minValue": 0, "maxValue": 100 },
+    {"id": "ADD_ON/TEMP", "valueUnits": "C", "minValue": -40, "maxValue": 125 },
+    {"id": "ADD_ON/ACC", "valueUnits": "m/s^2", "minValue": 0,"maxValue": "undefined"}];
+    let jsonData = JSON.stringify(jsonFile);
+    let fr = new FileReader();
+    let f  = new Blob([jsonData], {type:"application/json"});
+
+    if (typeof window.FileReader !== 'function') {
+      alert("The file API isn't supported on this browser yet.");
+      return;
+    }
+
+    fr = new FileReader();
+    fr.onload = receivedText;
+
+    function receivedText(e) {
+      console.log(e.target.result);
+      JSON.parse(e.target.result).forEach(addSensor);
+        
+    }
+
+    fr.readAsText(f);
+}
 
 function findSensorByID(sid) {
-    allSensors.find(function(e) { e.id === sid; });
+    return allSensors.find(function(elem) { return elem.id === sid; });
 };
 
 var activeSensor = null;
-var allSensors = [];
 
 class MessageWrapper {
 
