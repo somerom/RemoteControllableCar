@@ -6,5 +6,5 @@ function createSIDButtonListener(buttonID, sensorID) {
     btn.addEventListener("click", function() {
       activeSensor = findSensorByID(sensorID);
       console.log(activeSensor);
-      document.getElementById("activesensorid").innerHTML = sensorID;});
+      document.getElementById("activesensorid").innerHTML = sensorID + " (" + activeSensor.valueUnits + "):";});
 }
