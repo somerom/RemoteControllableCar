@@ -116,6 +116,10 @@ class Sensor {
 
 allSensors = [];
 
+function findSensorByID(sid) {
+    allSensors.find(function(e) { e.id === sid; });
+};
+
 var activeSensor = null;
 var allSensors = [];
 

@@ -7,6 +7,8 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,400italic' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-4.21.7.min.js"></script>
+    <script type="text/javascript" src="js/BackendDS.js"></script>
+    <script type="text/javascript" src="js/Frontend.js"></script>
     <style>
         .site {
             display: flex;
@@ -40,7 +42,13 @@
             background-color: burlywood;
             width: 80rem;
             height: 40rem;
-            display: flex;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas:
+            "sid1 sid2 sid3"
+            "sid4 sid5 sid6"
+            "sid7 sid8 sid9";
         }
 
         #sensordata {
@@ -120,6 +128,42 @@
             background-color: rgba(132, 242, 146, 0.941176);
 
 
+        }
+
+        .sid1 {
+            grid-area: sid1;
+        }
+
+        .sid2 {
+            grid-area: sid2;
+        }
+
+        .sid3 {
+            grid-area: sid3;
+        }
+
+        .sid4 {
+            grid-area: sid4;
+        }
+
+        .sid5 {
+            grid-area: sid5;
+        }
+
+        .sid6 {
+            grid-area: sid6;
+        }
+
+        .sid7 {
+            grid-area: sid7;
+        }
+
+        .sid8 {
+            grid-area: sid8;
+        }
+
+        .sid9 {
+            grid-area: sid9;
         }
 
         .up {
@@ -234,11 +278,34 @@
             });
 
         </script>
-
-        <div id="sensors">
-            <div>
-                <button id='add'>ADD SENSOR</button>
-                <button id='delete'>DELETE SENSOR</button>
+            <div id="sensors">
+                <div class="sid1">
+                    <button id='sid1'>sid1</button>
+                </div>
+                    <div class="sid2">
+                    <button id='sid2'>sid2</button>
+                </div>
+                <div class="sid3">
+                    <button id='sid3'>sid3</button>
+                </div>
+                <div class="sid4">
+                    <button id='sid4'>sid4</button>
+                </div>
+                <div class="sid5">
+                    <button id='sid5'>sid5</button>
+                </div>
+                <div class="sid6">
+                    <button id='sid6'>sid6</button>
+                </div>
+                <div class="sid7">
+                    <button id='sid7'>sid7</button>
+                </div>
+                <div class="sid8">
+                    <button id='sid8'>sid8</button>
+                </div>
+                <div class="sid9">
+                    <button id='sid9'>sid9</button>
+                </div>
             </div>
         </div>
     </div>
@@ -261,8 +328,21 @@
             </div>
         </div>
         <div id="sensordata">
+            <p id='activesensorid'></p>
         </div>
     </div>
-</body>
 
+    <script type="text/javascript">
+        createSIDButtonListener("sid1", "sid1");
+        createSIDButtonListener("sid2", "sid2");
+        createSIDButtonListener("sid3", "sid3");
+        createSIDButtonListener("sid4", "sid4");
+        createSIDButtonListener("sid5", "sid5");
+        createSIDButtonListener("sid6", "sid6");
+        createSIDButtonListener("sid7", "sid7");
+        createSIDButtonListener("sid8", "sid8");
+        createSIDButtonListener("sid9", "sid9");
+    </script>
+
+</body>
 </html>
