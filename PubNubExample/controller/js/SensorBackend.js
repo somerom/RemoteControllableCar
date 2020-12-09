@@ -86,20 +86,23 @@ class Sensor {
         this.valueUnits = valueUnits;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        this.sensorMemorySize = sensorMemorySize;
     }
 
     addSensorReading(reading) {
         this.sensorReadings.add(reading);
+        if (this === activeSensor) {
+            updateActiveSensorReadings();
+        }
     }
 }
 
 var allSensors = []
+var activeSensor = null;
 
 function findSensorByID(sid) {
     return allSensors.find(function(elem) { return elem.id === sid; });
 };
-
-var activeSensor = null;
 
 class MessageWrapper {
 
