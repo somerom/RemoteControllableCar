@@ -1,5 +1,5 @@
-// Set sensor id button listeners:
-
+// sensor id button listeners can be created with
+// createSIDButtonListener:
 function createSIDButtonListener(buttonID, sensorID) {
     let btn = document.getElementById(buttonID)
     btn.innerHTML = sensorID;
@@ -26,3 +26,18 @@ function updateActiveSensorReadings() {
         });
 
 };
+
+// Functions for recording car data from the user:
+
+function carPowerButtonListener() {
+    carState.updateCarPower();
+    console.log(carState.powerMode);
+}
+
+function createCarDirectionButton(buttonID, carDirection) {
+    document.getElementById(buttonID).addEventListener("click", function() {
+        let newSpeed = document.getElementById("carspeedctrl").value;
+        carState.updateCarDirection(carDirection, newSpeed);
+        console.log(carState.direction, carState.speed);
+    });
+}

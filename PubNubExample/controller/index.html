@@ -318,23 +318,23 @@
     <div class="site">
         <div id="buttons">
             <div class="power">
-                <button>POWER</button>
+                <button onClick="carPowerButtonListener()" id="carpowerctrl">POWER</button>
             </div>
             <div class="up">
-                <button>UP</button>
+                <button id="carupctrl">UP</button>
             </div>
             <div class="left">
-                <button>LEFT</button>
+                <button id="carleftctrl">LEFT</button>
             </div>
             <div class="down">
-                <button>DOWN</button>
+                <button id="cardownctrl">DOWN</button>
             </div>
             <div class="right">
-                <button>RIGHT</button>
+                <button id="carrightctrl">RIGHT</button>
             </div>
             <div class="speed">
                 <label for="carspeed">Car speed:</label>
-                <input type="number" min="0" max="100" step="5" value="50" id="carspeed"/>
+                <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl"/>
             </div>
         </div>
         <div id="sensordata">
@@ -348,6 +348,11 @@
         createSIDButtonListener("sid2", "ADD_ON/DHTHUM");
         createSIDButtonListener("sid3", "ADD_ON/TEMP");
         createSIDButtonListener("sid4", "ADD_ON/ACC");
+
+        createCarDirectionButton("carleftctrl", directions.LEFT);
+        createCarDirectionButton("carrightctrl", directions.RIGHT);
+        createCarDirectionButton("carupctrl", directions.UP);
+        createCarDirectionButton("cardownctrl", directions.DOWN);
     </script>
 
 </body>
