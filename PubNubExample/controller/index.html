@@ -36,7 +36,7 @@
             grid-template-areas:
                 "power up ."
                 "left down right"
-                ". . .";
+                ". speed .";
         }
 
         #sensors {
@@ -188,6 +188,10 @@
             grid-area: power;
         }
 
+        .speed {
+            grid-area: speed;
+        }
+
         #add {
             position: absolute;
             left: 25%;
@@ -327,6 +331,10 @@
             </div>
             <div class="right">
                 <button>RIGHT</button>
+            </div>
+            <div class="speed">
+                <label for="carspeed">Car speed:</label>
+                <input type="number" min="0" max="100" step="5" value="50" id="carspeed"/>
             </div>
         </div>
         <div id="sensordata">
