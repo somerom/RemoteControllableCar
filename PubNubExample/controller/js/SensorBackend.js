@@ -103,10 +103,3 @@ var activeSensor = null;
 function findSensorByID(sid) {
     return allSensors.find(function(elem) { return elem.id === sid; });
 };
-
-class MessageWrapper {
-
-    sendMessage(msg) {
-        console.log(msg);  // TODO: fix the dummy implementation 
-    }
-}

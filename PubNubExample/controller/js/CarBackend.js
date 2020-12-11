@@ -1,14 +1,22 @@
 const powerModes = {
-    ON : 1,
-    STANDBY : 2
+    ON : "ON",
+    STANDBY : "OFF"
 }
 
 const directions = {
-    UP : 1,
-    DOWN : 2,
-    LEFT : 3,
-    RIGHT : 4,
-    STOPPED : 5
+    UP : "UP",
+    DOWN : "DOWN",
+    LEFT : "LEFT",
+    RIGHT : "RIGHT",
+    STOPPED : "STOP"
+}
+
+
+class MessageWrapper {
+
+    sendMessage(topic, msg) {
+        console.log(topic + ": " + msg);  // TODO: fix the dummy implementation 
+    }
 }
 
 class CarState {
@@ -16,6 +24,7 @@ class CarState {
 	this.direction = direction;
 	this.speed = speed;
 	this.powerMode = powerMode;
+    this.MQTTWrapper = new MessageWrapper();
     }
 
     updateCarDirection(newDirection, newSpeed) {
@@ -27,10 +36,10 @@ class CarState {
 
         if (newSpeed !== this.speed) {
             this.speed = newSpeed;
-            // TODO: send the new speed, if the speed has changed (use messageWrapper)...
+            this.MQTTWrapper.sendMessage("SPEED", newSpeed);
         }
 
-        // TODO: write code for sending the new direction (use messageWrapper)...
+        this.MQTTWrapper.sendMessage("DIRECTION", this.direction);
 
 
     }
@@ -38,7 +47,7 @@ class CarState {
     updateCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON)? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
-        // TODO: write code for sending the new power mode (use messageWrapper)...
+        this.MQTTWrapper.sendMessage("POWER", this.powerMode);
     }
 };
 

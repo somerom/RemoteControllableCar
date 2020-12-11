@@ -31,13 +31,11 @@ function updateActiveSensorReadings() {
 
 function carPowerButtonListener() {
     carState.updateCarPower();
-    console.log(carState.powerMode);
 }
 
 function createCarDirectionButton(buttonID, carDirection) {
     document.getElementById(buttonID).addEventListener("click", function() {
         let newSpeed = document.getElementById("carspeedctrl").value;
         carState.updateCarDirection(carDirection, newSpeed);
-        console.log(carState.direction, carState.speed);
     });
 }
