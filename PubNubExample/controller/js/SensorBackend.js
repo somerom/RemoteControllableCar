@@ -1,3 +1,4 @@
+// a data structure for individual sensor readings:
 class SensorReading {
     constructor(timestamp, value) {
         this.timestamp = timestamp;
@@ -34,6 +35,9 @@ class SensorReading {
 
 class SensorReadingArray {
     constructor(maxSize) {
+        if (!Number.isInteger(maxSize) || maxSize < 1)
+            throw new TypeError("maxSize should be an integer > 1", "SensorBackend.js", 38);
+
         this.arr = [];
         this.maxSize = maxSize;
         this.length = 0;
@@ -89,8 +93,12 @@ class Sensor {
         this.sensorMemorySize = sensorMemorySize;
     }
 
-    addSensorReading(reading) {
-        this.sensorReadings.add(reading);
+    // addSensorReading: timestamp, value -> void
+    //
+    // adds a new sensorReading-object into the sensorReadings array
+    // with the given timestamp and the measured value.
+    addSensorReading(timestamp, value) {
+        this.sensorReadings.add(new SensorReading(timestamp, value));
         if (this === activeSensor) {
             updateActiveSensorReadings();
         }
@@ -100,6 +108,11 @@ class Sensor {
 var allSensors = []
 var activeSensor = null;
 
+// findSensorByID: sensor-ID -> Sensor
+// searches for and returns the sensor with sid from the
+// list of sensors.
+// If a sensor with the sensor ID does not exist,
+// undefined is returned.
 function findSensorByID(sid) {
     return allSensors.find(function(elem) { return elem.id === sid; });
 };

@@ -35,7 +35,6 @@ function carPowerButtonListener() {
 
 function createCarDirectionButton(buttonID, carDirection) {
     document.getElementById(buttonID).addEventListener("click", function() {
-        let newSpeed = document.getElementById("carspeedctrl").value;
-        carState.updateCarDirection(carDirection, newSpeed);
+        carState.updateCarDirection(carDirection, document.getElementById("carspeedctrl").value);
     });
 }

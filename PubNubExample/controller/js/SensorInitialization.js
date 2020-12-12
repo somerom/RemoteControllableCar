@@ -2,7 +2,7 @@ function createSensorMockData(sensor) {
     let i = sensor.sensorMemorySize;
 
     for (; i > 0; i--) {
-        sensor.addSensorReading(new SensorReading(Date(0), sensor.minValue + Math.random()*(sensor.maxValue-sensor.minValue)));
+        sensor.addSensorReading(Date(0), sensor.minValue + Math.random()*(sensor.maxValue-sensor.minValue));
     }
 }
 
