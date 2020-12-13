@@ -75,7 +75,4 @@ if __name__ == '__main__':
     ser.write(b"speed " + speed + b"\n")		
    else:
     ser.write(b"ERROR\n")	
-   line = ser.readline().decode('utf-8').rstrip()
-   print(line)
    x = 100
-  time.sleep(1)	
