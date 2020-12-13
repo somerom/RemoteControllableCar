@@ -9,7 +9,7 @@ function createSIDButtonListener(buttonID, sensorID) {
         document.getElementById("activesensorid").innerHTML = sensorID + " (" + activeSensor.valueUnits + "):";
         updateActiveSensorReadings();
     });
-};
+}
 
 function updateActiveSensorReadings() {
     htmlElem = document.getElementById("activesensorreadings");
@@ -25,16 +25,22 @@ function updateActiveSensorReadings() {
             htmlElem.appendChild(innerElem);
         });
 
-};
+}
 
 // Functions for recording car data from the user:
 
 function carPowerButtonListener() {
-    carState.updateCarPower();
+    carState.changeCarPower();
 }
 
 function createCarDirectionButton(buttonID, carDirection) {
     document.getElementById(buttonID).addEventListener("click", function() {
         carState.updateCarDirection(carDirection, document.getElementById("carspeedctrl").value);
     });
+}
+
+function updateVideoView(status) {
+    let color = (status == statuses.OK? "#000000": "#FF0000");
+    console.log(color);
+    document.getElementById("controller").style.borderColor = color;
 }

@@ -11,6 +11,11 @@ const directions = {
     STOPPED : "STOP"
 }
 
+const statuses = {
+    OK : 1,
+    DANGER : 2
+}
+
 
 class MessageWrapper {
 
@@ -25,6 +30,7 @@ class CarState {
 	this.speed = speed;
 	this.powerMode = powerMode;
     this.MQTTWrapper = new MessageWrapper();
+    this.statuses = statuses.OK;
     }
 
     updateCarDirection(newDirection, newSpeed) {
@@ -44,10 +50,15 @@ class CarState {
 
     }
 
-    updateCarPower() {
+    changeCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON)? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
         this.MQTTWrapper.sendMessage("POWER", this.powerMode);
+    }
+
+    changeStatus() {
+        this.status = (this.status === statuses.OK)? statuses.DANGER : statuses.OK;
+        updateVideoView(this.status);
     }
 };
 
