@@ -8,6 +8,9 @@
     <script type="text/javascript" src="js/SensorBackend.js"></script>
     <script type="text/javascript" src="js/SensorInitialization.js"></script>
     <script type="text/javascript" src="js/Frontend.js"></script>
+    <script type="text/javascript" src="js/websocket.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"
+        type="text/javascript"></script>
     <style>
         .site {
             display: flex;
@@ -21,7 +24,7 @@
             height: 40rem;
             background-color: rgba(196, 204, 208, 0.9);
             border-style: solid;
-            border-width: thick; 
+            border-width: thick;
             border-color: #000000;
             display: flex;
         }
@@ -48,13 +51,13 @@
             grid-template-rows: 1fr 1fr 1fr;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-areas:
-            "sid1 sid2 sid3"
-            "sid4 sid5 sid6"
-            "sid7 sid8 sid9";
+                "sid1 sid2 sid3"
+                "sid4 sid5 sid6"
+                "sid7 sid8 sid9";
         }
 
         #sensordata {
-            
+
             position: relative;
             background-color: cornsilk;
             width: 80rem;
@@ -143,36 +146,36 @@
                 <h3>Raspberry Pi 3B+ Video stream</h3>
             </div>
         </div>
-            <div id="sensors">
-                <div class="sid1">
-                    <button id='sid1'>sid1</button>
-                </div>
-                    <div class="sid2">
-                    <button id='sid2'>sid2</button>
-                </div>
-                <div class="sid3">
-                    <button id='sid3'>sid3</button>
-                </div>
-                <div class="sid4">
-                    <button id='sid4'>sid4</button>
-                </div>
-                <div class="sid5">
-                    <button id='sid5'>sid5</button>
-                </div>
-                <div class="sid6">
-                    <button id='sid6'>sid6</button>
-                </div>
-                <div class="sid7">
-                    <button id='sid7'>sid7</button>
-                </div>
-                <div class="sid8">
-                    <button id='sid8'>sid8</button>
-                </div>
-                <div class="sid9">
-                    <button id='sid9'>sid9</button>
-                </div>
+        <div id="sensors">
+            <div class="sid1">
+                <button id='sid1'>sid1</button>
+            </div>
+            <div class="sid2">
+                <button id='sid2'>sid2</button>
+            </div>
+            <div class="sid3">
+                <button id='sid3'>sid3</button>
+            </div>
+            <div class="sid4">
+                <button id='sid4'>sid4</button>
+            </div>
+            <div class="sid5">
+                <button id='sid5'>sid5</button>
+            </div>
+            <div class="sid6">
+                <button id='sid6'>sid6</button>
+            </div>
+            <div class="sid7">
+                <button id='sid7'>sid7</button>
+            </div>
+            <div class="sid8">
+                <button id='sid8'>sid8</button>
+            </div>
+            <div class="sid9">
+                <button id='sid9'>sid9</button>
             </div>
         </div>
+    </div>
     </div>
     <div class="site">
         <div id="carctrlbuttons">
@@ -193,7 +196,7 @@
             </div>
             <div class="speed">
                 <label for="carspeed">Car speed:</label>
-                <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl"/>
+                <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl" />
             </div>
         </div>
         <div id="sensordata">
@@ -215,4 +218,5 @@
     </script>
 
 </body>
+
 </html>
