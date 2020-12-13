@@ -15,12 +15,33 @@ const statuses = {
     OK: 1,
     DANGER: 2
 }
+var topic;
+var msg;
+function giveTopic() {
+    return topic;
+}
+function giveMsg() {
+    return msg;
+}
+class setTopic {
+    constructor(t) {
+        this.topic = t;
+    }
+}
 
+class setMsg {
+    constructor(m) {
+        this.msg = m;
+    }
+}
 
 class MessageWrapper {
 
+
     sendMessage(topic, msg) {
-        OnConnect(topic, msg);
+        this.setTopic(topic);
+        this.setMsg(msg);
+        MqttConnect();
         console.log(topic + ": " + msg);  // TODO: fix the dummy implementation 
     }
 }
