@@ -21,27 +21,27 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
  """The callback for when a PUBLISH message is received from the server."""
- print(msg.topic + ' ' + str(msg.payload.decode("utf-8")))
+ print(msg.topic + ' ' + str(msg.payload))
 	
  if str(msg.topic) == "DIRECTION":
-  if str(msg.payload.decode("utf-8")) == "UP":
+  if str(msg.payload) == "UP":
    x=0
-  if str(msg.payload.decode("utf-8")) == "DOWN":
+  if str(msg.payload) == "DOWN":
    x=1
-  if str(msg.payload.decode("utf-8")) == "STOP":
+  if str(msg.payload) == "STOP":
    x=2
-  if str(msg.payload.decode("utf-8")) == "RIGHT":
+  if str(msg.payload) == "RIGHT":
    x=3
-  if str(msg.payload.decode("utf-8")) == "LEFT":
+  if str(msg.payload) == "LEFT":
    x=4
- elif str(msg.topic.decode("utf-8")) == "POWER":
-  if str(msg.payload.decode("utf-8")) == "OFF":
+ elif str(msg.topic) == "POWER":
+  if str(msg.payload) == "OFF":
    x=5
-  if str(msg.payload.decode("utf-8")) == "ON":
+  if str(msg.payload) == "ON":
    x=6
- elif str(msg.topic.decode("utf-8")) == "SPEED":
+ elif str(msg.topic) == "SPEED":
   x=7
-  speed = int(msg.payload.decode("utf-8"))
+  speed = int(msg.payload)
 
 def main():
  mqtt_client = mqtt.Client()
