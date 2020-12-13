@@ -53,6 +53,7 @@ def main():
  mqtt_client.loop_forever()
 
 if __name__ == '__main__':
+ main()
  ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
  ser.flush()
  while True:
