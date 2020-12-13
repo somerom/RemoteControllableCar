@@ -18,26 +18,26 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
  """The callback for when a PUBLISH message is received from the server."""
- print(msg.topic + ' ' + str(msg.payload.decode(utf-8)))
+ print(msg.topic + ' ' + str(msg.payload.decode("utf-8")))
 	
  if str(msg.topic) == "CAR/DIRECTION":
-  if str(msg.payload.decode(utf-8)) == "UP":
+  if str(msg.payload.decode("utf-8")) == "UP":
    ser.write(b"forward\n")
-  if str(msg.payload.decode(utf-8)) == "DOWN":
+  if str(msg.payload.decode("utf-8")) == "DOWN":
    ser.write(b"back\n")
-  if str(msg.payload.decode(utf-8)) == "STOP":
+  if str(msg.payload.decode("utf-8")) == "STOP":
    ser.write(b"stop\n")
-  if str(msg.payload.decode(utf-8)) == "RIGHT":
+  if str(msg.payload.decode("utf-8")) == "RIGHT":
    ser.write(b"right\n")
-  if str(msg.payload.decode(utf-8)) == "LEFT":
+  if str(msg.payload.decode("utf-8")) == "LEFT":
    ser.write(b"left\n")
  elif str(msg.topic) == "CAR/POWER":
-  if str(msg.payload.decode(utf-8)) == "OFF":
+  if str(msg.payload.decode("utf-8")) == "OFF":
    ser.write(b"off\n")
-  if str(msg.payload.decode(utf-8)) == "ON":
+  if str(msg.payload.decode("utf-8")) == "ON":
    ser.write(b"on\n")
  elif str(msg.topic) == "CAR/SPEED":
-  ser.write(b"speed " + str(msg.payload.decode(utf-8)) + b"\n")
+  ser.write(b"speed " + str(msg.payload.decode("utf-8")) + b"\n")
 
 def main():	
  mqtt_client = mqtt.Client()
