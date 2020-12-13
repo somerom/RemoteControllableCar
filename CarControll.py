@@ -73,7 +73,7 @@ if __name__ == '__main__':
 			elif x == 6:
 				ser.write(b"on\n")
 			elif x == 7:
-				ser.write(b"speed " + speed + "\n")		
+				ser.write(b"speed " + speed + b"\n")		
 			else:
 				ser.write(b"ERROR\n")	
 
