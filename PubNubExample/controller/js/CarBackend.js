@@ -1,36 +1,37 @@
 const powerModes = {
-    ON : "ON",
-    STANDBY : "OFF"
+    ON: "ON",
+    STANDBY: "OFF"
 }
 
 const directions = {
-    UP : "UP",
-    DOWN : "DOWN",
-    LEFT : "LEFT",
-    RIGHT : "RIGHT",
-    STOPPED : "STOP"
+    UP: "UP",
+    DOWN: "DOWN",
+    LEFT: "LEFT",
+    RIGHT: "RIGHT",
+    STOPPED: "STOP"
 }
 
 const statuses = {
-    OK : 1,
-    DANGER : 2
+    OK: 1,
+    DANGER: 2
 }
 
 
 class MessageWrapper {
 
     sendMessage(topic, msg) {
+        OnConnect(topic, msg);
         console.log(topic + ": " + msg);  // TODO: fix the dummy implementation 
     }
 }
 
 class CarState {
     constructor(direction, speed, powerMode) {
-	this.direction = direction;
-	this.speed = speed;
-	this.powerMode = powerMode;
-    this.MQTTWrapper = new MessageWrapper();
-    this.statuses = statuses.OK;
+        this.direction = direction;
+        this.speed = speed;
+        this.powerMode = powerMode;
+        this.MQTTWrapper = new MessageWrapper();
+        this.statuses = statuses.OK;
     }
 
     updateCarDirection(newDirection, newSpeed) {
@@ -51,13 +52,13 @@ class CarState {
     }
 
     changeCarPower() {
-        this.powerMode = (this.powerMode === powerModes.ON)? powerModes.STANDBY : powerModes.ON;
+        this.powerMode = (this.powerMode === powerModes.ON) ? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
         this.MQTTWrapper.sendMessage("POWER", this.powerMode);
     }
 
     changeStatus() {
-        this.status = (this.status === statuses.OK)? statuses.DANGER : statuses.OK;
+        this.status = (this.status === statuses.OK) ? statuses.DANGER : statuses.OK;
         updateVideoView(this.status);
     }
 };
