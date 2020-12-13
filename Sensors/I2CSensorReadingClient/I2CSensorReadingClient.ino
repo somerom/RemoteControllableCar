@@ -10,8 +10,7 @@ char wifi_password[] = "sensors123"; // Your personal network password
 byte address; // variable for I2C address
 
 // MQTT
-const char* mqtt_server = "192.168.10.150";  // IP of the MQTT broker
-const char* sensor_topic = "ADD_ON/Sensor1";
+const char* mqtt_server = "192.168.10.145";  // IP of the MQTT broker
 const char* mqtt_username = "hello"; // MQTT username
 const char* mqtt_password = "hello"; // MQTT password
 const char* clientID = "Sensor1"; // MQTT client ID
@@ -40,11 +39,15 @@ void loop()
     Serial.println("No I2C devices found\n");
     delay(5000); // wait 5 seconds for the next I2C scan
   }else{
-     sensorVal = ReadSensor();
-     callibratedVal = callibrate(sensorVal); 
-     Serial.println("after calibration:" + callibratedVal);
-     //Serial.println(callibratedVal);
-     PublishToMQTT(callibratedVal);
+    if(address == 72){
+      callibrateTC74(); 
+    }
+    else if(address == 30){
+      callibrateHMC5883(); 
+    }
+    else{
+      Serial.println("This sensor is not callibrated to the system...");
+    }
   }
 }
 
@@ -53,7 +56,7 @@ float DeviceScanner(){
   int nDevices = 0;
 
   Serial.println("Scanning...");
-  for (byte i = 8; i < 120; i++)
+  for (byte i = 1; i < 120; i++)
   { Wire.beginTransmission (i);
     if (Wire.endTransmission () == 0)
     {
@@ -67,8 +70,49 @@ float DeviceScanner(){
  return nDevices;
 }
 
-char ReadSensor(){
+void callibrateHMC5883(){
+  const char* sensor_topic = "ADD_ON/ACC";
+  //code copied from sparkfuns tutorial pages https://www.sparkfun.com/tutorials/301
+  // Put the HMC5883 IC into the correct operating mode
+  Wire.beginTransmission(address); //open communication with HMC5883
+  Wire.write(0x02); //select mode register
+  Wire.write(0x00); //continuous measurement mode
+  Wire.endTransmission();
+
+  int x,y,z; //triple axis data
+
+  //Tell the HMC5883L where to begin reading data
+  Wire.beginTransmission(address);
+  Wire.write(0x03); //select register 3, X MSB register
+  Wire.endTransmission();
+  
+ //Read data from each axis, 2 registers per axis
+  Wire.requestFrom(address, 6);
+  if(6<=Wire.read()){
+    x = Wire.read()<<8; //X msb
+    x |= Wire.read(); //X lsb
+    z = Wire.read()<<8; //Z msb
+    z |= Wire.read(); //Z lsb
+    y = Wire.read()<<8; //Y msb
+    y |= Wire.read(); //Y lsb
+  }
+  String callibratedVal = "x:" + x ;
+  callibratedVal+= " y:" + y ;
+  callibratedVal+= " z:" + z; 
+  //Print out values of each axis
+  Serial.print("x: ");
+  Serial.print(x);
+  Serial.print("  y: ");
+  Serial.print(y);
+  Serial.print("  z: ");
+  Serial.println(z);
+  Serial.println("after calibration:" + callibratedVal);
+  PublishToMQTT(callibratedVal,sensor_topic);
+}
+
+void callibrateTC74(){
   float sensorVal;
+  const char* sensor_topic = "ADD_ON/TEMP";
   Wire.beginTransmission(address); //Send a request to begin communication with the device at the specified address
   Wire.write(0); //Sends a bit asking for register 0, the data register of a sensor
   Wire.endTransmission(); //this ends transmission of data from the arduino to the temperature sensor
@@ -78,21 +122,16 @@ char ReadSensor(){
     Serial.print("Sensor value:");
     Serial.println(sensorVal);
   }
-  return sensorVal;
-}
-String callibrate(float sensorVal){
   String callibratedVal;
   float temp;
-  if(address == 72){
     if (sensorVal > 127) 
     {
        sensorVal = 255 - sensorVal + 1;
        callibratedVal ='-';
     }
-  }
-  //else if(){} some other 16:bit sensor caliration
   callibratedVal += String(sensorVal);
-  return callibratedVal ;
+  Serial.println("after calibration:" + callibratedVal);
+  PublishToMQTT(callibratedVal,sensor_topic);
 }
 
 // function to connet to the MQTT broker via WiFi
@@ -123,7 +162,8 @@ void connect_MQTT(){
   }
 }
 
-void PublishToMQTT(String callibratedData){
+void PublishToMQTT(String callibratedData,const char* sensor_topic){
+  
   // PUBLISH to the MQTT Broker (topic = Temperature, defined at the beginning)
   if (client.publish(sensor_topic, callibratedData.c_str())) {
     Serial.println("Sensor data sent!");
@@ -132,8 +172,10 @@ void PublishToMQTT(String callibratedData){
     Serial.println("Temperature failed to send. Reconnecting to MQTT Broker and trying again");
     client.connect(clientID, mqtt_username, mqtt_password);
     delay(10); // This delay ensures that client.publish doesn't clash with the client.connect call
-    client.publish(sensor_topic, callibratedData.c_str());
-    Serial.println("failed to send!");
+    if (!client.publish(sensor_topic, callibratedData.c_str()))
+    {
+      Serial.println("failed to send!");
+    }
   }
   client.disconnect();  // disconnect from the MQTT broker
   delay(200);       // print new values every 20 ms

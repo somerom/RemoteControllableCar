@@ -1,4 +1,3 @@
-
 #include "DHTesp.h" //Functions for reading data from AM2302 sensor
 #include "PubSubClient.h" // Connect and publish to the MQTT broker
 #include "ESP8266WiFi.h"  // Enables the ESP8266 to connect to the local network (via WiFi)
@@ -12,9 +11,9 @@ char wifi_password[] = "sensors123"; // Your personal network password
 
 // MQTT 
 // Changes these values to match the brokers settings
-const char* mqtt_server = "192.168.10.150";  // IP of the MQTT broker
-const char* humidity_topic = "ADD_ON/Sensor2";
-const char* temperature_topic = "ADD_ON/Sensor3";
+const char* mqtt_server = "192.168.10.145";  // IP of the MQTT broker
+const char* humidity_topic = "ADD_ON/DHTTEMP";
+const char* temperature_topic = "ADD_ON/DHTHUM";
 const char* mqtt_username = "hello"; // MQTT username
 const char* mqtt_password = "hello"; // MQTT password
 const char* clientID = "Sensor2"; // MQTT client ID
@@ -51,7 +50,6 @@ void connect_MQTT(){
   }
 }
 
-
 void setup() {
  Serial.begin(115200);
  Serial.println("Status\tHumidity (%)\tTemperature (C)");
@@ -71,10 +69,6 @@ void loop() {
   Serial.print("Temperature: ");
   Serial.print(t);
   Serial.println(" *C");
-
-  // MQTT can only transmit strings
-  String hs="Hum: "+String((float)h)+" % ";
-  String ts="Temp: "+String((float)t)+" C ";
 
   // PUBLISH to the MQTT Broker (topic = Temperature, defined at the beginning)
   if (client.publish(temperature_topic, String(t).c_str())) {

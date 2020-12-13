@@ -15,7 +15,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     """The callback for when a PUBLISH message is received from the server."""
-    print(msg.topic + ' ' + str(msg.payload))
+    print(msg.topic + ' ' + str(msg.payload.decode("utf-8")))
 
 def main():
     mqtt_client = mqtt.Client()

@@ -11,9 +11,7 @@ MQTT_PASSWORD_RASP = 'hello'
 MQTT_TOPIC_RASP = '+/+' #subscribe all the topics from the broker
 MQTT_PORT_RASP = 1883
 
-MQTT_ADDRESS_WEB = '192.168.10.150'
-#MQTT_USER_WEB = 'hello'
-#MQTT_PASSWORD_WEB = 'hello'
+MQTT_ADDRESS_WEB = 'broker.hivemq.com'
 MQTT_PORT_WEB = 1883
 mqtt_client_web = mqtt_web.Client() #create a client
 
@@ -30,14 +28,14 @@ def on_connect_web(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     "callback for when a PUBLISH message is received from the server"
     "and send the received data with a timestamp to another broker "
-    print(msg.topic + ' ' + str(msg.payload))
-    new_payload = time.strftime("{%H.%M.%S %d-%m-%Y,") + msg.payload + "}"
+    print(msg.topic + ' ' + str(msg.payload.decode("utf-8")))
+    timeStamp = time.strftime("%H.%M.%S %d-%m-%Y")
+    new_payload ="{"+ timeStamp+"," + msg.payload.decode("utf-8")+ "}"
     mqtt_client_web.publish(msg.topic, payload=new_payload)
 
 def main():
 
     mqtt_client_rasp = mqtt_rasp.Client() #create a subscriber
-    #mqtt_client_web.username_pw_set(MQTT_USER_WEB, MQTT_PASSWORD_WEB)
     mqtt_client_web.on_connect = on_connect_web
     mqtt_client_web.connect(MQTT_ADDRESS_WEB, MQTT_PORT_WEB)
 
