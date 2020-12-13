@@ -7,6 +7,9 @@ MQTT_USER = 'hello'
 MQTT_PASSWORD = 'hello'
 MQTT_TOPIC = '+/+'
 
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+ser.flush()
+
 def on_connect(client, userdata, flags, rc):
  """ The callback for when the client receives a CONNACK response from the server."""
  print('Connected with result code ' + str(rc))
@@ -17,7 +20,7 @@ def on_message(client, userdata, msg):
  """The callback for when a PUBLISH message is received from the server."""
  print(msg.topic + ' ' + str(msg.payload.decode(utf-8)))
 	
- if str(msg.topic) == "DIRECTION":
+ if str(msg.topic) == "CAR/DIRECTION":
   if str(msg.payload.decode(utf-8)) == "UP":
    ser.write(b"forward\n")
   if str(msg.payload.decode(utf-8)) == "DOWN":
@@ -28,17 +31,15 @@ def on_message(client, userdata, msg):
    ser.write(b"right\n")
   if str(msg.payload.decode(utf-8)) == "LEFT":
    ser.write(b"left\n")
- elif str(msg.topic) == "POWER":
+ elif str(msg.topic) == "CAR/POWER":
   if str(msg.payload.decode(utf-8)) == "OFF":
    ser.write(b"off\n")
   if str(msg.payload.decode(utf-8)) == "ON":
    ser.write(b"on\n")
- elif str(msg.topic) == "SPEED":
+ elif str(msg.topic) == "CAR/SPEED":
   ser.write(b"speed " + str(msg.payload.decode(utf-8)) + b"\n")
 
-def main():
- ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
- ser.flush()	
+def main():	
  mqtt_client = mqtt.Client()
  mqtt_client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
  mqtt_client.on_connect = on_connect
