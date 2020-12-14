@@ -64,10 +64,10 @@ class CarState {
 
         if (newSpeed !== this.speed) {
             this.speed = newSpeed;
-            this.MQTTWrapper.sendMessage("SPEED", newSpeed);
+            this.MQTTWrapper.sendMessage("CAR/SPEED", newSpeed);
         }
 
-        this.MQTTWrapper.sendMessage("DIRECTION", this.direction);
+        this.MQTTWrapper.sendMessage("CAR/DIRECTION", this.direction);
 
 
     }
@@ -75,7 +75,7 @@ class CarState {
     changeCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON) ? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
-        this.MQTTWrapper.sendMessage("POWER", this.powerMode);
+        this.MQTTWrapper.sendMessage("CAR/POWER", this.powerMode);
     }
 
     changeStatus() {
