@@ -29,8 +29,11 @@ def on_message(client, userdata, msg):
     "callback for when a PUBLISH message is received from the server"
     "and send the received data with a timestamp to another broker "
     print(msg.topic + ' ' + str(msg.payload.decode("utf-8")))
-    timeStamp = time.strftime("%H.%M.%S %d-%m-%Y")
-    new_payload ="{"+ timeStamp+"," + msg.payload.decode("utf-8")+ "}"
+    clockTime = time.strftime("%H.%M.%S")
+    date = time.strftime("%d-%m-%Y")
+    data = str(msg.payload.decode("utf-8"))
+    new_payload ="{\"time\":\""+ clockTime + "\",\"date\":\""+date+"\",\"data\":\"" + data  + "\"}"
+
     mqtt_client_web.publish(msg.topic, payload=new_payload)
 
 def main():
