@@ -15,7 +15,9 @@ def main():
     mqtt_client.on_connect = on_connect
     mqtt_client.connect(MQTT_ADDRESS_WEB, MQTT_PORT_WEB)
     for i in range(5):
-       mqtt_client.publish('raspberry/topic', payload=i)
+       timeStamp = time.strftime("%H.%M.%S %d-%m-%Y")
+       new_payload ="{"+ timeStamp+"," + "DATA"+ "}"
+       mqtt_client.publish('CAR/DIRECTION', payload=new_payload)
        print(i)
     mqtt_client.loop_forever()
 
