@@ -1,8 +1,7 @@
 import paho.mqtt.client as mqtt
+import time
 
-MQTT_ADDRESS_WEB = '192.168.2.1'
-MQTT_USER_WEB = 'hello'
-MQTT_PASSWORD_WEB = 'hello'
+MQTT_ADDRESS_WEB = 'broker.hivemq.com'
 MQTT_PORT_WEB = 1883
 
 def on_connect(client, userdata, flags, rc):
@@ -11,12 +10,13 @@ def on_connect(client, userdata, flags, rc):
 
 def main():
     mqtt_client = mqtt.Client()
-    mqtt_client.username_pw_set(MQTT_USER_WEB, MQTT_PASSWORD_WEB)
     mqtt_client.on_connect = on_connect
     mqtt_client.connect(MQTT_ADDRESS_WEB, MQTT_PORT_WEB)
     for i in range(5):
-       timeStamp = time.strftime("%H.%M.%S %d-%m-%Y")
-       new_payload ="{"+ timeStamp+"," + "DATA"+ "}"
+       clockTime = time.strftime("%H.%M.%S")
+       date = time.strftime("%d-%m-%Y")
+       data = "12.34"
+       new_payload ="{\"time\":\""+ clockTime + "\",\"date\":\""+date+"\",\"data\":\"" + data  + "\"}"
        mqtt_client.publish('CAR/DIRECTION', payload=new_payload)
        print(i)
     mqtt_client.loop_forever()
