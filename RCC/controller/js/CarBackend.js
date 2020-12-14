@@ -17,26 +17,21 @@ const statuses = {
 }
 var topic;
 var msg;
-function giveTopic() {
-    return topic;
-}
-function giveMsg() {
-    return msg;
-}
-class setTopic {
-    constructor(t) {
-        this.topic = t;
-    }
-}
 
-class setMsg {
-    constructor(m) {
-        this.msg = m;
-    }
-}
 
 class MessageWrapper {
-
+    giveTopic() {
+        return topic;
+    }
+    giveMsg() {
+        return msg;
+    }
+    setTopic(t) {
+        this.topic = t;
+    }
+    setMsg(m) {
+        this.msg = m;
+    }
 
     sendMessage(topic, msg) {
         this.setTopic(topic);

@@ -1,14 +1,14 @@
 
 var mqtt;
 var reconnectTimeout = 2000;
-var host = "users.metropolia.fi/~maijaso/IoTProject/controller/index.html";
-var port = 8080;
+var host = "192.168.2.1";
+var port = 1883;
 
 function OnConnect() {
     console.log("Connected");
-    message = new Paho.MQTT.Message(giveMsg);
-    message.destinationName = giveTopic;
-    mqtt.send(message)
+    message = new Paho.MQTT.Message(giveMsg());
+    message.destinationName = giveTopic();
+    mqtt.send(message())
 }
 
 function MqttConnect() {
@@ -23,9 +23,9 @@ function MqttConnect() {
 }
 function OnConnect2() {
 
-    message = new Paho.MQTT.Message(giveMsg);
-    message.destinationName = giveTopic;
-    mqtt.subscribe(giveTopic);
+    message = new Paho.MQTT.Message(giveMsg());
+    message.destinationName = giveTopic();
+    mqtt.subscribe(giveTopic());
 }
 
 function MqttConnect2() {
