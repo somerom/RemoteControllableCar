@@ -35,7 +35,8 @@ def on_message(client, userdata, msg):
   if str(msg.payload.decode("utf-8")) == "ON":
    ser.write(b"on\n")
  elif str(msg.topic) == "CAR/SPEED":
-  ser.write(b"speed " + str(msg.payload.decode("utf-8")) + b"\n")
+  text = "speed " + str(msg.payload) + "\n"		
+  ser.write(text.encode("utf-8"))
 
 def main():	
  mqtt_client = mqtt.Client()
