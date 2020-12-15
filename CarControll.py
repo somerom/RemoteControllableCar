@@ -3,9 +3,7 @@ import serial
 import time
 
 MQTT_ADDRESS = '192.168.2.1'
-MQTT_USER = 'hello'
-MQTT_PASSWORD = 'hello'
-MQTT_TOPIC = '+/+'
+MQTT_TOPIC = 'CAR/+'
 
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
@@ -41,7 +39,6 @@ def on_message(client, userdata, msg):
 
 def main():	
  mqtt_client = mqtt.Client()
- mqtt_client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
  mqtt_client.on_connect = on_connect
  mqtt_client.on_message = on_message
 
