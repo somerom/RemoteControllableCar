@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 import time
-
+import json
 MQTT_ADDRESS_WEB = 'broker.hivemq.com'
 MQTT_PORT_WEB = 1883
 
@@ -16,8 +16,9 @@ def main():
        clockTime = time.strftime("%H.%M.%S")
        date = time.strftime("%d-%m-%Y")
        data = "12.34"
-       new_payload ="{\"time\":\""+ clockTime + "\",\"date\":\""+date+"\",\"data\":\"" + data  + "\"}"
-       mqtt_client.publish('CAR/DIRECTION', payload=new_payload)
+       new_payload = {"time":clockTime, "date":date, "data": data}
+       mqtt_client.publish('CAR/DIRECTION', payload=json.dumps(new_payload))
+
        print(i)
     mqtt_client.loop_forever()
 
