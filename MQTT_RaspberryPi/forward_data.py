@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt_rasp
 import paho.mqtt.client as mqtt_web
 import time
+import json
 
 #Settings for subscriber (raspberry pi) and a client (web page)
 #change the IP address ,username, password and port number
@@ -32,9 +33,9 @@ def on_message(client, userdata, msg):
     clockTime = time.strftime("%H.%M.%S")
     date = time.strftime("%d-%m-%Y")
     data = str(msg.payload.decode("utf-8"))
-    new_payload ="{\"time\":\""+ clockTime + "\",\"date\":\""+date+"\",\"data\":\"" + data  + "\"}"
+    new_payload = {"time":clockTime, "date":date, "data": data}
+    mqtt_client_web.publish(msg.topic, payload=json.dumps(new_payload))
 
-    mqtt_client_web.publish(msg.topic, payload=new_payload)
 
 def main():
 
