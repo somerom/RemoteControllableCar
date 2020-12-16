@@ -19,3 +19,6 @@ uint16 value_convert_gyro(uint16 raw);
 #define OUT_Z_AXIS_L        0x2C
 #define OUT_Z_AXIS_H        0x2D
 
+uint16 getGyroXValue();
+uint16 getGyroYValue();
+uint16 getGyroZValue();

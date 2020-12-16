@@ -141,6 +141,28 @@ void zmain(void *p)
 }
 #endif
 
+uint16 getGyroXValue(){
+    enableDefault();
+    uint8 data[6];
+    I2C_Read_Multiple(D20_SA0_HIGH_ADDRESS, OUT_X_L | 0x80, data, 6);
+    return (int16) ((data[1] << 8) | data[0]);
+    
+}
+uint16 getGyroYValue(){
+    enableDefault();
+    uint8 data[6];
+    I2C_Read_Multiple(D20_SA0_HIGH_ADDRESS, OUT_X_L | 0x80, data, 6);
+    return (int16) ((data[3] << 8) | data[2]);
+    
+}
+uint16 getGyroZValue(){
+    enableDefault();
+    uint8 data[6];
+    I2C_Read_Multiple(D20_SA0_HIGH_ADDRESS, OUT_X_L | 0x80, data, 6);
+    return (int16) ((data[5] << 8) | data[4]);
+    
+}
+
 #if 0
 //gyroscope//
 void zmain()

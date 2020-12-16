@@ -20,6 +20,8 @@
 #include "I2C_Common.h"
 
 int speed = 0;
+
+
 /**
  * @file    main.c
  * @brief   
@@ -62,6 +64,9 @@ int readCommand(char* command) {
     } else if(!strcmp(command, "accelerometer\n")) {
         printf("Acccelerometer value \r\n");
         return 9;
+    } else if(!strcmp(command, "gyroscope\n")) {
+        printf("Gyroscope value \r\n");
+        return 10;
     }
     printf("Not a command\r\n");
     return 0;
@@ -73,6 +78,7 @@ void zmain(void)
     struct accData_ data;
     CyGlobalIntEnable;
     UART_1_Start();
+   
     
     if(!LSM303D_Start()) {
         printf("LSM303D failed to initialize!!! Program is Ending!!!\n");
@@ -123,7 +129,16 @@ void zmain(void)
                 //speed
             } else if(command == 9) {
                 LSM303D_Read_Acc(&data);
-                printf("X-axis: %10d Yaxis: %10d Z-axis: %10d\n",data.accX, data.accY, data.accZ);
+                printf("X-axis: %10d Y-axis: %10d Z-axis: %10d\n",data.accX, data.accY, data.accZ);
+                vTaskDelay(250);
+            } else if(command == 10) {
+                uint16 x = getGyroXValue();
+                vTaskDelay(200);
+                uint16 y = getGyroYValue();
+                vTaskDelay(200);
+                uint16 z = getGyroZValue();
+                vTaskDelay(200);
+                printf("X-axis: %10d Y-axis: %10d Z-axis: %10d\n",x, y, z);
                 vTaskDelay(250);
             } else {
                 printf("Try again\r\n");
@@ -140,43 +155,4 @@ void zmain(void)
         }
     }
  }  
-#endif
-
-#if 0
-//gyroscope//
-void zmain()
-{
-    CyGlobalIntEnable; 
-    UART_1_Start();
-  
-    I2C_Start();
-  
-    uint8 X_L_G, X_H_G, Y_L_G, Y_H_G, Z_L_G, Z_H_G;
-    int16 X_AXIS_G, Y_AXIS_G, Z_AXIS_G;
-    
-    I2C_Write(GYRO_ADDR, GYRO_CTRL1_REG, 0x0F);             // set gyroscope into active mode
-    I2C_Write(GYRO_ADDR, GYRO_CTRL4_REG, 0x30);             // set full scale selection to 2000dps    
-    
-    for(;;)
-    {
-        //print out gyroscope output
-        X_L_G = I2C_Read(GYRO_ADDR, OUT_X_AXIS_L);
-        X_H_G = I2C_Read(GYRO_ADDR, OUT_X_AXIS_H);
-        X_AXIS_G = convert_raw(X_H_G, X_L_G);
-        
-        
-        Y_L_G = I2C_Read(GYRO_ADDR, OUT_Y_AXIS_L);
-        Y_H_G = I2C_Read(GYRO_ADDR, OUT_Y_AXIS_H);
-        Y_AXIS_G = convert_raw(Y_H_G, Y_L_G);
-        
-        
-        Z_L_G = I2C_Read(GYRO_ADDR, OUT_Z_AXIS_L);
-        Z_H_G = I2C_Read(GYRO_ADDR, OUT_Z_AXIS_H);
-        Z_AXIS_G = convert_raw(Z_H_G, Z_L_G);
-     
-        // If you want to print value
-        printf("x: %d y: %d z: %d \r\n", X_AXIS_G, Y_AXIS_G, Z_AXIS_G);
-        vTaskDelay(250);
-    }
-}   
 #endif
