@@ -17,13 +17,14 @@ def main():
     mqtt_client = mqtt.Client()
     mqtt_client.on_connect = on_connect
     mqtt_client.connect(MQTT_ADDRESS_WEB, MQTT_PORT_WEB)
-    if ser.in_waiting > 0:
-     data = ser.readline().decode('utf-8').rstrip()
-     clockTime = time.strftime("%H.%M.%S")
-     date = time.strftime("%d-%m-%Y")
-     new_payload = {"time":clockTime, "date":date, "data": data}
-     mqtt_client.publish('CAR/ACC', payload=json.dumps(new_payload))
-    mqtt_client.loop_forever()
+    while True:
+     if ser.in_waiting > 0:
+      data = ser.readline().decode('utf-8').rstrip()
+      clockTime = time.strftime("%H.%M.%S")
+      date = time.strftime("%d-%m-%Y")
+      new_payload = {"time":clockTime, "date":date, "data": data}
+      mqtt_client.publish('CAR/ACC', payload=json.dumps(new_payload))
+     mqtt_client.loop_forever()
 
 if __name__ == '__main__':
     print('MQTT to InfluxDB bridge')
