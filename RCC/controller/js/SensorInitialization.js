@@ -32,7 +32,8 @@ function loadJSONData() {
         console.log(e.target.result);
         JSON.parse(e.target.result).forEach(addSensor);
         // create mock data for testing:
-        allSensors.forEach(createSensorMockData);
+        //allSensors.forEach(createSensorMockData);
+
     }
 
     fr.readAsText(f);

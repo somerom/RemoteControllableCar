@@ -29,7 +29,7 @@ function MqttConnectSendMessage(topic, msg) {
 
 }
 function OnConnect2() {
-    mqtt.subscribe(t);
+    mqtt.subscribe(t, { qos: 0 });
 }
 function Subscribe(topic) {
     mqtt = new Paho.MQTT.Client(host, port, clientID);

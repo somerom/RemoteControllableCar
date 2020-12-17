@@ -30,7 +30,7 @@ class DatabaseManager():
 # Function to save Temperature to DB Table
 
 
-def DHTTEMP_Data_Handler(jsonData):
+def DHTTEMP_Handler(jsonData):
 	# Parse Data
 	json_Dict = json.loads(jsonData)
 	Time = json_Dict['Time']
@@ -40,15 +40,13 @@ def DHTTEMP_Data_Handler(jsonData):
 	# Push into DB Table
 	dbObj = DatabaseManager()
 	dbObj.add_del_update_db_record(
-	    "insert into DHTEMP_Temperature_Data (Time, Date, Temperature) values (?,?,?)", [Time, Date, Temperature])
+	    "insert into DHTEMP_Data (Time, Date, Temperature) values (?,?,?)", [Time, Date, Temperature])
 	del dbObj
-	print "Inserted DHTTemperature Data into Database."
-	print ""
+	print("Inserted into DHTTemp")
+
 
 # Function to save Humidity to DB Table
-
-
-def DHTHUM_Data_Handler(jsonData):
+def DHTHUM_Handler(jsonData):
 	# Parse Data
 	json_Dict = json.loads(jsonData)
     Time = json_Dict['Time']
@@ -59,11 +57,10 @@ def DHTHUM_Data_Handler(jsonData):
 	dbObj = DatabaseManager()
 	dbObj.add_del_update_db_record("insert into DHTHUM_Data (Time, Date, Humidity) values (?,?,?)",[Time,Date,Humidity])
 	del dbObj
-	print "Inserted DHTHumidity Data into Database."
-	print ""
+	print ("Inserted DHTHumidity Data into Database.")
 
 # Function to save Humidity to DB Table
-def TEMP_Data_Handler(jsonData):
+def TEMP_Handler(jsonData):
 	# Parse Data 
 	json_Dict = json.loads(jsonData)
     Time = json_Dict['Time']
@@ -72,12 +69,11 @@ def TEMP_Data_Handler(jsonData):
 
     # Push into DB Table
 	dbObj = DatabaseManager()
-	dbObj.add_del_update_db_record("insert into TEMP_Data (Time, Date, Tempera) values (?,?,?)",[Time,Date, Tempera])
+	dbObj.add_del_update_db_record("Insert into TEMP_Data (Time, Date, Tempera) values (?,?,?)",[Time,Date, Tempera])
 	del dbObj
-	print "Inserted Temperature Data into Database."
-	print ""
+	print ("Inserted Temperature Data into Database.")
 
-def ACC_Data_Handler(jsonData):
+def ACC_Handler(jsonData):
 	# Parse Data 
 	json_Dict = json.loads(jsonData)
     Time = json_Dict['Time']
@@ -86,10 +82,9 @@ def ACC_Data_Handler(jsonData):
 	
 	# Push into DB Table
 	dbObj = DatabaseManager()
-	dbObj.add_del_update_db_record("insert into ACC_Data (Time,Date,Acceleration) values (?,?,?)",[Time, Date, Acceleration])
+	dbObj.add_del_update_db_record("Insert into ACC_Data (Time,Date,Acceleration) values (?,?,?)",[Time, Date, Acceleration])
 	del dbObj
-	print "Inserted Acceleration Data into Database."
-	print ""
+	print ("Inserted Acceleration Data into Database.")
 
 
 # ===============================================================
