@@ -6,3 +6,5 @@
 [1205/124738.127:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Yritettiin käyttää suljettavaa prosessia. (0xc000010a)
 [1209/141110.711:ERROR:directory_reader_win.cc(43)] FindFirstFile: Määritettyä polkua ei löydy. (0x3)
 [1212/142528.777:ERROR:directory_reader_win.cc(43)] FindFirstFile: Määritettyä polkua ei löydy. (0x3)
+[1217/160500.204:ERROR:directory_reader_win.cc(43)] FindFirstFile: Määritettyä polkua ei löydy. (0x3)
+[1217/185517.585:ERROR:directory_reader_win.cc(43)] FindFirstFile: Määritettyä polkua ei löydy. (0x3)
