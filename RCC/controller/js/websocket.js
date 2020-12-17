@@ -1,40 +1,39 @@
 
 var mqtt;
-var reconnectTimeout = 2000;
-var host = "192.168.2.1";
-var port = 1883;
+var host = 'broker.hivemq.com';
+var port = 8000;
+var clientID = "clientId-8wAkwjtVrk";
+var t = "";
+var m = "";
+
+
+
+
 
 function OnConnect() {
     console.log("Connected");
-    message = new Paho.MQTT.Message(giveMsg());
-    message.destinationName = giveTopic();
-    mqtt.send(message())
+    var msg2 = new Paho.MQTT.Message(m);
+    msg2.qos = 0;
+    msg2.destinationName = t;
+    msg2.retained = false;
+    mqtt.send(msg2);
 }
 
-function MqttConnect() {
-    console.log("connecting to" + host + " " + port);
-    mgtt = new Paho.MQTT.Client(host, port, "clientjs");
-    var options = {
-        timeout = 3,
-        onSuccess = OnConnect(),
+function MqttConnectSendMessage(topic, msg) {
+    mqtt = new Paho.MQTT.Client(host, port, clientID);
+    console.log("connecting to " + host + " " + port);
+    t = topic;
+    m = msg;
+    mqtt.connect({ onSuccess: OnConnect, mqttVersion: 3 });
+    //mqtt.subscribe("SPEED/");
 
-    };
-    mqtt.connect(options);
 }
 function OnConnect2() {
-
-    message = new Paho.MQTT.Message(giveMsg());
-    message.destinationName = giveTopic();
-    mqtt.subscribe(giveTopic());
+    mqtt.subscribe(t, { qos: 0 });
 }
-
-function MqttConnect2() {
-    console.log("connecting to" + host + " " + port);
-    mgtt = new Paho.MQTT.Client(host, port, "clientjs");
-    var options = {
-        timeout = 3,
-        onSuccess = OnConnect2(),
-
-    };
-    mqtt.connect(options);
+function Subscribe(topic) {
+    mqtt = new Paho.MQTT.Client(host, port, clientID);
+    console.log("connecting to " + host + " " + port);
+    t = topic;
+    mqtt.connect({ onSuccess: OnConnect2, mqttVersion: 3 });
 }
