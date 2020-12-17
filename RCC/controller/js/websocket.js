@@ -2,60 +2,51 @@ var mqttSensor;
 var host = 'broker.hivemq.com';
 var port = 8000;
 var clientID = "clientId-ttbht3y1LT";
-var sensorTopics = "ADD_ON/+";
-var carTopics = "CAR/+";
+var subscriberTopics = ["ADD_ON/+", "CAR/GYRO"];
 var m = "";
 
-function mqttSensorConnect() {
-    mqttSensor = new Paho.MQTT.Client(host, port, clientID);
-    console.log("connecting to " + host + " " + port);
-    mqttSensor.onConnectionLost = onSensorConnectionLost;
-    mqttSensor.onMessageArrived = onSensorMessageArrived;
-    mqttSensor.connect({ onSuccess: onSensorConnect });
-}
-
-function onSensorConnect() {
-    console.log("Sensor Connected");-
-    mqttSensor.subscribe(sensorTopics);
-}
-
-function onSensorConnectionLost(responseObject) {
-    console.log("Sensor Connection Lost");
-    mqttSensor.connect({ onSuccess: onSensorConnect });
-}
-
-function onSensorMessageArrived(msg) {
-    findSensorById(msg.destinationName).addSensorReading(msg.payloadString);
-}
-
-
-class CarCtrlMqttWrapper {
-    constructor() {
-        this.mqttConnect();
-    }
-
-    sendMessage(topic, msg) {;
+    function sendMqttMessage(topic, msg) {
         console.log(topic + ": " + msg);
-        let message = new Paho.MQTT.Message(topic);
+        let message = new Paho.MQTT.Message(msg);
         message.destinationName = topic;
         console.log(message);
-        this.mqttCarCtrl.send(message);
+        mqtt.send(message);
     }
 
-    onConnect() {
+    function onConnect() {
         // Once a connection has been made, make a subscription and send a message.
-        console.log("CarCtrl Connected");
+        console.log("MQTT Client Connected");
+        subscriberTopics.forEach(mqtt.subscribe);
     }
 
-    onConnectionLost() {
-        console.log("CarCtrl Connection Lost. Retrying Again...");
-        this.mqttCarCtrl.connect({ onSuccess: this.onConnect });
+    function onConnectionLost(error) {
+        console.log("MQTT Client Connection Lost. Retrying Again...");
+        console.log(error.errorMessage);
+        mqtt.connect({ onSuccess: onConnect });
     }
 
-    mqttConnect() {
-        this.mqttCarCtrl = new Paho.MQTT.Client(host, port, clientID);
-        this.mqttCarCtrl.onConnectionLost = this.onConnectionLost;
+    function onMessageArrived(msg) {
+        let topic = msg.destinationName;
+        if (topic === "CAR/GYRO") {
+            console.log(msg.payloadString);
+            carState.updateStatus(msg.payloadString);
+        }
+        else {
+            sensor = findSensorByID(topic);
+         
+            if (sensor != "undefined")
+                sensor.addSensorReading(msg.payloadString);
+        }
+    }
+
+    function mqttConnect() {
+        console.log(this.mqtt);
+        mqtt.onConnectionLost = onConnectionLost;
+        mqtt.onMessageArrived = onMessageArrived;
         console.log("connecting to " + host + " " + port);
-        this.mqttCarCtrl.connect({ onSuccess: this.onConnect });
+        mqtt.connect({ onSuccess: onConnect });
     }
-}
+
+mqtt = new Paho.MQTT.Client(host, port, clientID);
+
+mqttConnect();

@@ -1,8 +1,9 @@
 // a data structure for individual sensor readings:
 class SensorReading {
-    constructor(timestamp, value) {
-        this.timestamp = timestamp;
-        this.value = value;
+    constructor(time, date, data) {
+        this.time = time;
+        this.date = date
+        this.data = data;
     }
 }
 
@@ -93,12 +94,14 @@ class Sensor {
         this.sensorMemorySize = sensorMemorySize;
     }
 
-    // addSensorReading: timestamp, value -> void
+    // addSensorReading: {"time" : [time], "date": [date], "data" : [data]} -> void
     //
-    // adds a new sensorReading-object into the sensorReadings array
-    // with the given timestamp and the measured value.
-    addSensorReading(timestamp, value) {
-        this.sensorReadings.add(new SensorReading(timestamp, value));
+    // Parses the given json-formatted sensorReading object and
+    // adds it into the sensorReadings array
+    // .
+    addSensorReading(jsonSensorData) {
+        console.log(jsonSensorData);
+        this.sensorReadings.add(JSON.parse(jsonSensorData));
         if (this === activeSensor) {
             updateActiveSensorReadings();
         }

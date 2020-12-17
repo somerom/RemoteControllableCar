@@ -23,7 +23,7 @@ function updateActiveSensorReadings() {
     activeSensor.sensorReadings.forEach(function(reading) {
         innerElem=document.createElement("p")
         innerElem.appendChild(document.createTextNode(
-            "[" + reading.timestamp + "]: " + reading.value))
+            "[" + reading.date + " " + reading.time + "]: "+ reading.data))
         htmlElem.appendChild(innerElem)
     })
 }

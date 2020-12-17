@@ -4,16 +4,16 @@ const powerModes = {
 }
 
 const directions = {
-    UP: "FORWARD",
-    DOWN: "BACK",
+    UP: "UP",
+    DOWN: "DOWN",
     LEFT: "LEFT",
     RIGHT: "RIGHT",
     STOPPED: "STOP"
 }
 
 const statuses = {
-    OK: 1,
-    DANGER: 2
+    OK: "OK",
+    DANGER: "NOT_OK"
 }
 
 class CarState {
@@ -21,7 +21,6 @@ class CarState {
         this.direction = direction;
         this.speed = speed;
         this.powerMode = powerMode;
-        this.MQTTWrapper = new CarCtrlMqttWrapper();
         this.statuses = statuses.OK;
     }
 
@@ -34,10 +33,10 @@ class CarState {
 
         if (newSpeed !== this.speed) {
             this.speed = newSpeed;
-            this.MQTTWrapper.sendMessage("CAR/SPEED", newSpeed);
+            sendMqttMessage("CAR/SPEED", newSpeed);
         }
 
-        this.MQTTWrapper.sendMessage("CAR/DIRECTION", this.direction);
+        sendMqttMessage("CAR/DIRECTION", this.direction);
 
 
     }
@@ -45,11 +44,11 @@ class CarState {
     changeCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON) ? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
-        this.MQTTWrapper.sendMessage("CAR/POWER", this.powerMode);
+        sendMqttMessage("CAR/POWER", this.powerMode);
     }
 
-    changeStatus() {
-        this.status = (this.status === statuses.OK) ? statuses.DANGER : statuses.OK;
+    updateStatus(newStatus) {
+        this.status = (newStatus === statuses.OK) ? statuses.OK : statuses.DANGER;
         updateVideoView(this.status);
     }
 };
