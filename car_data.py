@@ -22,7 +22,7 @@ def main():
      clockTime = time.strftime("%H.%M.%S")
      date = time.strftime("%d-%m-%Y")
      new_payload = {"time":clockTime, "date":date, "data": data}
-     mqtt_client.publish('CAR/DIRECTION', payload=json.dumps(new_payload))
+     mqtt_client.publish('CAR/ACC', payload=json.dumps(new_payload))
     mqtt_client.loop_forever()
 
 if __name__ == '__main__':
