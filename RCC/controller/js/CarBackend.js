@@ -4,8 +4,8 @@ const powerModes = {
 }
 
 const directions = {
-    UP: "UP",
-    DOWN: "DOWN",
+    UP: "FORWARD",
+    DOWN: "BACK",
     LEFT: "LEFT",
     RIGHT: "RIGHT",
     STOPPED: "STOP"
