@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Raspberry Pi LED Controller">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"
+        type="text/javascript"></script>
+    <script type="text/javascript" src="js/websocket.js"></script>
     <script type="text/javascript" src="js/CarBackend.js"></script>
     <script type="text/javascript" src="js/SensorBackend.js"></script>
     <script type="text/javascript" src="js/SensorInitialization.js"></script>
     <script type="text/javascript" src="js/Frontend.js"></script>
-    <script type="text/javascript" src="js/websocket.js"></script>
-    <script type="text/javascript" scr="js/Sensordata.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
 
     <style>
         .site {
@@ -22,7 +21,7 @@
             position: relative;
             left: 0;
             top: 0;
-            width: 80rem;
+            width: 100rem;
             height: 40rem;
             background-color: rgba(196, 204, 208, 0.9);
             border-style: solid;
@@ -32,7 +31,7 @@
         }
 
         #carctrlbuttons {
-            width: 80rem;
+            width: 100rem;
             height: 40rem;
             background-color: aquamarine;
             display: grid;
@@ -47,7 +46,7 @@
         #sensors {
             position: relative;
             background-color: burlywood;
-            width: 80rem;
+            width: 60rem;
             height: 40rem;
             display: grid;
             grid-template-rows: 1fr 1fr 1fr;
@@ -62,7 +61,7 @@
 
             position: relative;
             background-color: cornsilk;
-            width: 80rem;
+            width: 60rem;
             height: 40rem;
         }
 

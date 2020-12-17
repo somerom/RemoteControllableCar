@@ -16,24 +16,12 @@ const statuses = {
     DANGER: 2
 }
 
-
-
-class MessageWrapper {
-
-
-    sendMessage(topic, msg) {
-
-        MqttConnectSendMessage(topic, msg);
-        console.log(topic + ": " + msg);  // TODO: fix the dummy implementation 
-    }
-}
-
 class CarState {
     constructor(direction, speed, powerMode) {
         this.direction = direction;
         this.speed = speed;
         this.powerMode = powerMode;
-        this.MQTTWrapper = new MessageWrapper();
+        this.MQTTWrapper = new CarCtrlMqttWrapper();
         this.statuses = statuses.OK;
     }
 
@@ -46,10 +34,10 @@ class CarState {
 
         if (newSpeed !== this.speed) {
             this.speed = newSpeed;
-            this.MQTTWrapper.sendMessage("SPEED", newSpeed);
+            this.MQTTWrapper.sendMessage("CAR/SPEED", newSpeed);
         }
 
-        this.MQTTWrapper.sendMessage("DIRECTION", this.direction);
+        this.MQTTWrapper.sendMessage("CAR/DIRECTION", this.direction);
 
 
     }
@@ -57,7 +45,7 @@ class CarState {
     changeCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON) ? powerModes.STANDBY : powerModes.ON;
         this.direction = directions.STOPPED;
-        this.MQTTWrapper.sendMessage("POWER", this.powerMode);
+        this.MQTTWrapper.sendMessage("CAR/POWER", this.powerMode);
     }
 
     changeStatus() {

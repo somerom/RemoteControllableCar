@@ -1,6 +1,7 @@
 var data1 = []
 var db1 = openDatabase('IoT_sensor.db', '1.0', 'my first database', 2 * 1024 * 1024);
-db.transaction(function (tx) {
+db1.transaction(function (tx) {
+
     tx.executeSql('SELECT * FROM DHTTEMP_Data', [], function (tx, results) {
         var len = results.rows.length, i;
         for (i = 0; i < len; i++) {
@@ -10,7 +11,7 @@ db.transaction(function (tx) {
 });
 var data2 = []
 var db2 = openDatabase('IoT_sensor.db', '1.0', 'my first database', 2 * 1024 * 1024);
-db.transaction(function (tx) {
+db2.transaction(function (tx) {
     tx.executeSql('SELECT * FROM DHTHUM_Data', [], function (tx, results) {
         var len = results.rows.length, i;
         for (i = 0; i < len; i++) {
@@ -20,7 +21,7 @@ db.transaction(function (tx) {
 });
 var data3 = []
 var db3 = openDatabase('IoT_sensor.db', '1.0', 'my first database', 2 * 1024 * 1024);
-db.transaction(function (tx) {
+db3.transaction(function (tx) {
     tx.executeSql('SELECT * FROM TEMP_Data', [], function (tx, results) {
         var len = results.rows.length, i;
         for (i = 0; i < len; i++) {
@@ -30,7 +31,7 @@ db.transaction(function (tx) {
 });
 var data4 = []
 var db4 = openDatabase('IoT_sensor.db', '1.0', 'my first database', 2 * 1024 * 1024);
-db.transaction(function (tx) {
+db4.transaction(function (tx) {
     tx.executeSql(".mode html")
     tx.executeSql('SELECT * FROM ACC_Data', [], function (tx, results) {
         var len = results.rows.length, i;
@@ -41,6 +42,5 @@ db.transaction(function (tx) {
 });
 
 function GiveData() {
-
-    allert(data4)
+    alert(data2)
 }
