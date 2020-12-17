@@ -1,5 +1,5 @@
 import sqlite3
-
+import cgitb
 # SQLite DB Name
 DB_Name = "IoT_sensors.db"
 

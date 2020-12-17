@@ -40,3 +40,5 @@ function loadJSONData() {
 }
 
 loadJSONData("sensors.json");
+
+GiveData();

@@ -1,17 +1,19 @@
-import paho.mqtt.client as mqtt
+import cgitb
 from Store_Sensor_Data_To_Database import sensor_Data_Handler
+import paho.mqtt.client as mqtt
+
 
 # MQTT Settings
 MQTT_Broker = "broker.hivemq.com"
 MQTT_Port = 8000
 Keep_Alive_Interval = 45
-MQTT_Topic = "ADD_ON/#"
+MQTT_Topic = "ADD_ON/+"
 
 # Subscribe to all Sensors at Base Topic
 
 
 def on_connect(mosq, obj, rc):
-    mqtt.subscribe(MQTT_Topic, 0)
+    mqttc.subscribe(MQTT_Topic, 0)
 
 # Save Data into DB Table
 
@@ -39,5 +41,10 @@ mqttc.on_subscribe = on_subscribe
 # Connect
 mqttc.connect(MQTT_Broker, int(MQTT_Port), int(Keep_Alive_Interval))
 
+# Test
+cgitb.enable()
+
+print("Content-Type: text/plain;charset=utf-8")
+print("Test")
 # Continue the network loop
 mqttc.loop_forever()

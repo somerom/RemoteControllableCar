@@ -31,6 +31,7 @@ db.transaction(function (tx) {
 var data4 = []
 var db4 = openDatabase('IoT_sensor.db', '1.0', 'my first database', 2 * 1024 * 1024);
 db.transaction(function (tx) {
+    tx.executeSql(".mode html")
     tx.executeSql('SELECT * FROM ACC_Data', [], function (tx, results) {
         var len = results.rows.length, i;
         for (i = 0; i < len; i++) {
@@ -38,8 +39,8 @@ db.transaction(function (tx) {
         }
     });
 });
-let sensordata1 = new Array(data1, data2, data3, data4)
 
-for (i = 0; i < 4; i++) {
-    document.getElementById(sensordata).innerHTML += "<br>" + sensordata1[i] + "/<br>";
+function GiveData() {
+
+    allert(data4)
 }
