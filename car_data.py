@@ -20,11 +20,13 @@ def main():
     while True:
      if ser.in_waiting > 0:
       data = ser.readline().decode('utf-8').rstrip()
-      clockTime = time.strftime("%H.%M.%S")
-      date = time.strftime("%d-%m-%Y")
-      new_payload = {"time":clockTime, "date":date, "data": data}
-      mqtt_client.publish('CAR/ACC', payload=json.dumps(new_payload))
-     mqtt_client.loop_forever()
+      if data == "OK" or  data == "NOT_OK":
+       print(data)
+       clockTime = time.strftime("%H.%M.%S")
+       date = time.strftime("%d-%m-%Y")
+       new_payload = {"time":clockTime, "date":date, "data": data}
+       mqtt_client.publish('CAR/GYRO', payload=json.dumps(new_payload))
+    mqtt_client.loop_forever()
 
 if __name__ == '__main__':
     print('MQTT to InfluxDB bridge')
