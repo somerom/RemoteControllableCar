@@ -6,7 +6,6 @@ var subscriberTopics = ["ADD_ON/+", "CAR/GYRO"];
 var m = "";
 
     function sendMqttMessage(topic, msg) {
-        console.log(topic + ": " + msg);
         let message = new Paho.MQTT.Message(msg);
         message.destinationName = topic;
         console.log(message);
@@ -28,7 +27,6 @@ var m = "";
     function onMessageArrived(msg) {
         let topic = msg.destinationName;
         if (topic === "CAR/GYRO") {
-            console.log(msg.payloadString);
             carState.updateStatus(msg.payloadString);
         }
         else {
@@ -40,7 +38,6 @@ var m = "";
     }
 
     function mqttConnect() {
-        console.log(this.mqtt);
         mqtt.onConnectionLost = onConnectionLost;
         mqtt.onMessageArrived = onMessageArrived;
         console.log("connecting to " + host + " " + port);

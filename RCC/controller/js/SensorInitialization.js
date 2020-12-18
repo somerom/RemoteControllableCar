@@ -28,8 +28,7 @@ function loadJSONData() {
     fr = new FileReader();
     fr.onload = receivedText;
 
-    function receivedText(e) {
-        console.log(e.target.result);
+    function receivedText(e) {;
         JSON.parse(e.target.result).forEach(addSensor);
         // create mock data for testing:
         // allSensors.forEach(createSensorMockData);
