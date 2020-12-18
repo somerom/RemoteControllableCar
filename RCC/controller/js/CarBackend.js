@@ -8,7 +8,7 @@ const directions = {
     DOWN: "DOWN",
     LEFT: "LEFT",
     RIGHT: "RIGHT",
-    STOPPED: "STOP"
+    STOP: "STOP"
 }
 
 const statuses = {
@@ -25,11 +25,7 @@ class CarState {
     }
 
     updateCarDirection(newDirection, newSpeed) {
-        if (this.direction === newDirection) {
-            this.direction = directions.STOPPED;
-        }
-
-        else this.direction = newDirection;
+        this.direction = newDirection;
 
         if (newSpeed !== this.speed) {
             this.speed = newSpeed;
@@ -43,7 +39,7 @@ class CarState {
 
     changeCarPower() {
         this.powerMode = (this.powerMode === powerModes.ON) ? powerModes.STANDBY : powerModes.ON;
-        this.direction = directions.STOPPED;
+        this.direction = directions.STOP;
         sendMqttMessage("CAR/POWER", this.powerMode);
     }
 

@@ -40,7 +40,7 @@
             grid-template-areas:
                 "power up ."
                 "left down right"
-                ". speed .";
+                ". speed stop";
         }
 
         #sensors {
@@ -130,6 +130,10 @@
             grid-area: speed;
         }
 
+        .stop {
+            grid-area: stop;
+        }
+
         button {
             width: 180px;
             height: 50px;
@@ -202,6 +206,9 @@
                 <label for="carspeed">Car speed:</label>
                 <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl" />
             </div>
+            <div class="stop">
+                <button id="carstopctrl">STOP</button>
+            </div>
         </div>
         <div id="sensordata">
             <p id="activesensorid"></p>
@@ -219,6 +226,7 @@
         createCarDirectionButton("carrightctrl", directions.RIGHT);
         createCarDirectionButton("carupctrl", directions.UP);
         createCarDirectionButton("cardownctrl", directions.DOWN);
+        createCarDirectionButton("carstopctrl", directions.STOP);
 
 
     </script>
