@@ -111,17 +111,27 @@ void zmain(void)
             int command = readCommand(input);
             
             if(command == 1) {
-                forward = true;
+                left = false; //update 2
+                right = false; //update 2
                 backward = false;
+                forward = true;
+                
+                
             } else if(command == 2) {
+                left = false; //update 2
+                right = false; //update 2
                 forward = false;
                 backward = true;
             }else if(command == 3) {
+                forward = false; //update 2
+                backward = false; //update 2
                 left = true; //update
                 //motor_tankturn_left(speed,00); //original
                 //vTaskDelay(250); //original
                 //motor_forward(0,0); //original
             }else if(command == 4) {
+                forward = false; //update 2
+                backward = false; //update 2
                 right = true; //update
                 //motor_tankturn_right(speed,0); //original
                 //vTaskDelay(250); //original
