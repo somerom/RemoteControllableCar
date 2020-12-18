@@ -8,6 +8,7 @@
 #include "task.h"
 #include "I2C_Common.h"
 #include "Gyro.h"
+#include <stdlib.h>
 
     // register addresses
     enum regAddr
@@ -116,6 +117,7 @@ uint16 value_convert_gyro(uint16 raw)
 
 
 #if 0
+    //Test gyro
 void zmain(void *p)
 {
     (void) p;
@@ -131,13 +133,33 @@ void zmain(void *p)
     int16 z;
     
     while(1) {
-        I2C_Read_Multiple(D20_SA0_HIGH_ADDRESS, OUT_X_L | 0x80, data, 6);
-        x = (int16) ((data[1] << 8) | data[0]);
-        y = (int16) ((data[3] << 8) | data[2]);
-        z = (int16) ((data[5] << 8) | data[4]);
-        vTaskDelayUntil(200);
+        printf("New gyro readings!\r\n");
+        int16 xvalues[6];
+        int16 yvalues[6];
+        int16 zvalues[6];
+        
+        
+        for(int i = 0; i < 5; i++) {
+            
+            I2C_Read_Multiple(D20_SA0_HIGH_ADDRESS, OUT_X_L | 0x80, data, 6);
+            x = (int16) ((data[1] << 8) | data[0]);
+            y = (int16) ((data[3] << 8) | data[2]);
+            z = (int16) ((data[5] << 8) | data[4]);
+            
+            printf("X: %10d \nY: %10d\nZ: %10d\n\n", x, y, z);
+            xvalues[i] = x;
+            yvalues[i] = y;
+            zvalues[i] = z;
+            vTaskDelay(200);
+        }
+        for(int i = 0; i < 4; i++) {
+            if(abs(xvalues[i]-xvalues[i+1]) > 1000 || abs(yvalues[i]-yvalues[i+1]) > 1000 || abs(zvalues[i]-zvalues[i+1]) > 1000){
+            printf("SOSOSOSOSOOSOSOSOSOSSSSS!!!\n\n");
+            vTaskDelay(200);
+            }
+        vTaskDelay(5000);
+        }
     }
-    
 }
 #endif
 

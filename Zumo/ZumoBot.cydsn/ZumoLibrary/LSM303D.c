@@ -92,7 +92,8 @@ int main(void) {
     for(;;)
     {
         LSM303D_Read_Acc(&data);
-        printf("%10d %10d %10d\n",data.accX, data.accY, data.accZ);
+        printf("X: %10d \nY: %10d \nZ: %10d\n",data.accX, data.accY, data.accZ);
+        vTaskDelay(500);
         
     }
  }   
