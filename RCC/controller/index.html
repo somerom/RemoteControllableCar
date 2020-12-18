@@ -21,8 +21,8 @@
             position: relative;
             left: 0;
             top: 0;
-            width: 100rem;
-            height: 40rem;
+            width: 55rem;
+            height: 35rem;
             background-color: rgba(196, 204, 208, 0.9);
             border-style: solid;
             border-width: thick;
@@ -31,8 +31,8 @@
         }
 
         #carctrlbuttons {
-            width: 100rem;
-            height: 40rem;
+            width: 55rem;
+            height: 25rem;
             background-color: aquamarine;
             display: grid;
             grid-template-rows: 0.5fr 0.5fr 2fr;
@@ -46,8 +46,8 @@
         #sensors {
             position: relative;
             background-color: burlywood;
-            width: 60rem;
-            height: 40rem;
+            width: 45rem;
+            height: 25rem;
             display: grid;
             grid-template-rows: 1fr 1fr 1fr;
             grid-template-columns: 1fr 1fr 1fr;
@@ -61,8 +61,8 @@
 
             position: relative;
             background-color: cornsilk;
-            width: 60rem;
-            height: 40rem;
+            width: 45rem;
+            height: 35rem;
         }
 
         #videoframe {
@@ -154,6 +154,37 @@
         <div id="controller">
             <iframe id="videoframe" src="https://vivacious-gar-1137.dataplicity.io/html/"></iframe>
         </div>
+        <div id="sensordata">
+            <p id="activesensorid"></p>
+            <div id="activesensorreadings"></div>
+        </div>
+    </div>
+    </div>
+    <div class="site">
+        <div id="carctrlbuttons">
+            <div class="power">
+                <button onClick="carPowerButtonListener()" id="carpowerctrl">POWER</button>
+            </div>
+            <div class="up">
+                <button id="carupctrl">FORWARD</button>
+            </div>
+            <div class="left">
+                <button id="carleftctrl">LEFT</button>
+            </div>
+            <div class="down">
+                <button id="cardownctrl">BACK</button>
+            </div>
+            <div class="right">
+                <button id="carrightctrl">RIGHT</button>
+            </div>
+            <div class="speed">
+                <label for="carspeed">Car speed:</label>
+                <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl" />
+            </div>
+            <div class="stop">
+                <button id="carstopctrl">STOP</button>
+            </div>
+        </div>
         <div id="sensors">
             <div class="sid1">
                 <button id='sid1'>sid1</button>
@@ -182,37 +213,6 @@
             <div class="sid9">
                 <button id='sid9'>sid9</button>
             </div>
-        </div>
-    </div>
-    </div>
-    <div class="site">
-        <div id="carctrlbuttons">
-            <div class="power">
-                <button onClick="carPowerButtonListener()" id="carpowerctrl">POWER</button>
-            </div>
-            <div class="up">
-                <button id="carupctrl">UP</button>
-            </div>
-            <div class="left">
-                <button id="carleftctrl">LEFT</button>
-            </div>
-            <div class="down">
-                <button id="cardownctrl">DOWN</button>
-            </div>
-            <div class="right">
-                <button id="carrightctrl">RIGHT</button>
-            </div>
-            <div class="speed">
-                <label for="carspeed">Car speed:</label>
-                <input type="number" min="1" max="100" step="3" value="50" id="carspeedctrl" />
-            </div>
-            <div class="stop">
-                <button id="carstopctrl">STOP</button>
-            </div>
-        </div>
-        <div id="sensordata">
-            <p id="activesensorid"></p>
-            <div id="activesensorreadings"></div>
         </div>
     </div>
 
