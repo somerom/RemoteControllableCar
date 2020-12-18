@@ -100,7 +100,7 @@ class Sensor {
     // adds it into the sensorReadings array
     // .
     addSensorReading(jsonSensorData) {
-        console.log(jsonSensorData);
+        //console.log(jsonSensorData);
         this.sensorReadings.add(JSON.parse(jsonSensorData));
         if (this === activeSensor) {
             updateActiveSensorReadings();
