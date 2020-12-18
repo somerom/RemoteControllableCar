@@ -8,7 +8,7 @@ var m = "";
     function sendMqttMessage(topic, msg) {
         let message = new Paho.MQTT.Message(msg);
         message.destinationName = topic;
-        console.log(message);
+        // console.log(message);
         mqtt.send(message);
     }
 
